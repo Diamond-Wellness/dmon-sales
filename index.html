@@ -2,8 +2,11 @@
 <html lang="th">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=5">
 <meta name="theme-color" content="#1f6b45">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="DMON Sales">
 <title>DMON Sales Dashboard</title>
 
 <!-- ไอคอนบนแท็บเบราว์เซอร์ + ไอคอนตอนบันทึกลงหน้าจอโฮมมือถือ -->
@@ -11,11 +14,29 @@
 <link rel="apple-touch-icon" href="logo.png">
 
 <style>
-  html,body{margin:0;padding:0;height:100%;background:#f4f7f5;overflow:hidden}
-  #frame{position:fixed;inset:0;width:100%;height:100%;border:0;display:block}
-  #load{position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;
+  html,body{
+    margin:0;padding:0;
+    height:100%;
+    background:#f4f7f5;
+    overflow:hidden;
+    overscroll-behavior:none;      /* กันหน้าเด้งตอนลากสุดขอบ */
+  }
+  /* ใช้ dvh เพื่อไม่ให้ความสูงกระตุกตอนแถบ URL บนมือถือยุบ-โผล่ */
+  #frame{
+    position:fixed;
+    top:0;left:0;
+    width:100%;
+    height:100vh;
+    height:100dvh;
+    border:0;
+    display:block;
+  }
+  #load{
+    position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;
     justify-content:center;gap:16px;background:#f4f7f5;z-index:2;
-    font-family:'IBM Plex Sans Thai Looped',-apple-system,'Segoe UI',sans-serif;color:#6b7d76}
+    font-family:'IBM Plex Sans Thai Looped',-apple-system,'Segoe UI',sans-serif;color:#6b7d76;
+    padding:24px;text-align:center
+  }
   #load.done{opacity:0;pointer-events:none;transition:opacity .35s}
   .logo{width:96px;height:96px;object-fit:contain;display:block}
   .spin{width:20px;height:20px;border:2.5px solid #dff3e7;border-top-color:#1f6b45;
@@ -42,6 +63,7 @@
 <iframe id="frame"
         src="https://script.google.com/macros/s/AKfycbxKahNSKOUcwaRw5FG7xnAUfdJP9khDNyEKqdMdyC2SoUWJzwSambv-8Slo5uN3-GcE/exec"
         title="DMON Sales Dashboard"
+        scrolling="yes"
         allow="clipboard-write; fullscreen"></iframe>
 
 <script>
@@ -49,6 +71,14 @@
   var l = document.getElementById('load');
   f.addEventListener('load', function () { l.classList.add('done'); });
   setTimeout(function () { l.classList.add('done'); }, 12000);
+
+  /* กันหน้ากระตุกตอนหมุนจอ หรือคีย์บอร์ดเด้งขึ้นมาบนมือถือ */
+  function fit(){ f.style.height = window.innerHeight + 'px'; }
+  if (!CSS.supports('height','100dvh')) {
+    fit();
+    window.addEventListener('resize', fit);
+    window.addEventListener('orientationchange', function(){ setTimeout(fit, 200); });
+  }
 </script>
 </body>
 </html>
