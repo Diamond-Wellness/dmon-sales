@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1f6b45">
+<title>DMON Sales Dashboard</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><rect width='24' height='24' rx='5' fill='%231f6b45'/><path d='M6 7h12l2 3-8 8-8-8z' fill='none' stroke='white' stroke-width='1.6' stroke-linejoin='round'/></svg>">
+<style>
+  html,body{margin:0;padding:0;height:100%;background:#f4f7f5;overflow:hidden}
+  #frame{position:fixed;inset:0;width:100%;height:100%;border:0;display:block}
+  #load{position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;
+    justify-content:center;gap:14px;background:#f4f7f5;z-index:2;
+    font-family:'IBM Plex Sans Thai Looped',-apple-system,'Segoe UI',sans-serif;color:#6b7d76}
+  #load.done{opacity:0;pointer-events:none;transition:opacity .35s}
+  .logo{width:54px;height:54px;border-radius:15px;background:#1f6b45;display:flex;
+    align-items:center;justify-content:center}
+  .logo svg{width:28px;height:28px;fill:none;stroke:#fff;stroke-width:1.6;
+    stroke-linecap:round;stroke-linejoin:round}
+  .spin{width:20px;height:20px;border:2.5px solid #dff3e7;border-top-color:#1f6b45;
+    border-radius:50%;animation:sp .7s linear infinite}
+  @keyframes sp{to{transform:rotate(360deg)}}
+  @media(prefers-reduced-motion:reduce){.spin{animation:none}}
+</style>
+</head>
+<body>
+
+<div id="load">
+  <div class="logo">
+    <svg viewBox="0 0 24 24"><path d="M6 3.4h12l3 5.2-9 12-9-12z"/><path d="M3 8.6h18"/></svg>
+  </div>
+  <div class="spin"></div>
+  <div>กำลังเปิดระบบยอดขาย…</div>
+</div>
+
+<!--
+  ===========================================================
+  แก้บรรทัดล่างนี้บรรทัดเดียว
+  วางลิงก์ /exec ของเว็บแอปจาก Apps Script แทนข้อความ PASTE_EXEC_URL_HERE
+  ตัวอย่าง https://script.google.com/macros/s/AKfycb.........../exec
+  ===========================================================
+-->
+<iframe id="frame"
+        src="PASTE_EXEC_URL_HERE"
+        title="DMON Sales Dashboard"
+        allow="clipboard-write; fullscreen"></iframe>
+
+<script>
+  var f = document.getElementById('frame');
+  var l = document.getElementById('load');
+  f.addEventListener('load', function () { l.classList.add('done'); });
+  setTimeout(function () { l.classList.add('done'); }, 12000);
+</script>
+</body>
+</html>
